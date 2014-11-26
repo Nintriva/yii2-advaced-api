@@ -116,6 +116,10 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    public function actionTestjsonp()
+    {
+        return $this->render('jsonp_test');
+    }
     public function actionSignup()
     {
         $model = new SignupForm();

@@ -2,7 +2,6 @@
 namespace api\controllers;
 
 use Yii;
-use yii\helpers\Json;
 use yii\rest\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -43,6 +42,11 @@ class SiteController extends Controller
         ];
     }
 
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'responseData',
+    ];
+
     /**
      * @inheritdoc
      */
@@ -50,13 +54,16 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                    'class' => 'api\components\ErrorAction',
+                'class' => 'api\components\ErrorAction',
             ],
         ];
     }
+
     public function actionIndex()
     {
-        return Json::encode(['code'=>200,'message'=>'site/index','response'=>'index render successful']);
+        return [
+            "message"=>"Everything work fine,if you need configure response format do it in config",
+        ];
     }
 
 

@@ -15,6 +15,14 @@ DIRECTORY STRUCTURE
 -------------------
 
 ```
+api
+    assets/              contains application assets such as JavaScript and CSS
+    components/          contains components classes
+    config/              contains api configurations
+    controllers/         contains Api controller classes
+    models/              contains api-specific model classes
+    runtime/             contains files generated during runtime
+    web/                 contains the entry script and Api resources
 common
     config/              contains shared configurations
     mail/                contains view files for e-mails

@@ -1,10 +1,9 @@
 <?php
 namespace api\controllers;
 
-use common\models\ProjectSearch;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\rest\ActiveController;
+use common\models\ProjectSearch;
 
 
 /**
@@ -15,7 +14,7 @@ class ProjectController extends ActiveController
     public $modelClass = 'common\models\Project';
     public $serializer = [
         'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => 'response',
+        'collectionEnvelope' => 'responseData',
     ];
 
     public function actions(){
@@ -30,5 +29,6 @@ class ProjectController extends ActiveController
         $dataProvider = $model->search($params);
         return $dataProvider;
     }
+
 
 }

@@ -32,13 +32,17 @@ return [
         ],
         'response' => [
             'class' => 'yii\web\Response',
+            'format'=>'jsonp',// json or jsonp
             'on beforeSend' => function ($event) {
+                    $callback = isset($_REQUEST['callback'])?$_REQUEST['callback']:false;
                     $response = $event->sender;
                     if ($response->data !== null) {
                         $response->data = [
                             'success' => $response->isSuccessful,
                             'data' => $response->data,
                         ];
+                        if($callback)
+                            $response->data += ['callback'=>$callback];
                         $response->statusCode = 200;
                     }
                 },

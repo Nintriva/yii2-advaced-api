@@ -5,7 +5,8 @@ $params = array_merge(
     require(__DIR__ . '/params.php'),
     require(__DIR__ . '/params-local.php')
 );
-
+$callback = isset($_REQUEST['callback'])?$_REQUEST['callback']:false;
+$format = $callback?'jsonp':'json';
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
@@ -32,7 +33,7 @@ return [
         ],
         'response' => [
             'class' => 'yii\web\Response',
-            'format'=>'jsonp',// json or jsonp
+            'format'=>$format,// json or jsonp
             'on beforeSend' => function ($event) {
                     $callback = isset($_REQUEST['callback'])?$_REQUEST['callback']:false;
                     $response = $event->sender;

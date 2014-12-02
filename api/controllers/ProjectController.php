@@ -24,8 +24,8 @@ class ProjectController extends ActiveController
     }
 
     public function actionIndex(){
-        $params = Yii::$app->request->get();
         $model = new ProjectSearch();
+        $params[$model->formName()] = Yii::$app->request->get();
         $dataProvider = $model->search($params);
         return $dataProvider;
     }

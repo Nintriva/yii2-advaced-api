@@ -44,7 +44,7 @@ class SiteController extends Controller
 
     public $serializer = [
         'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => 'responseData',
+        'collectionEnvelope' => 'dataProvider',
     ];
 
     /**

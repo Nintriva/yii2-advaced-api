@@ -41,8 +41,9 @@ class ProjectSearch extends Project
      */
     public function search($params)
     {
-        //page is the page number starting from 1
-        //per-page no of data per page default 20
+        //page : the page number starting from 1
+        //per-page : no of data per page default 20
+        //fields : fields to be selected comma seperated e.g: id, name
         $query = Project::find();
 
         $dataProvider = new ActiveDataProvider([

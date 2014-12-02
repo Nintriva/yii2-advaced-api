@@ -53,7 +53,7 @@ return [
             //'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'project'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['project','site']],
             ],
          ],
         'errorHandler' => [

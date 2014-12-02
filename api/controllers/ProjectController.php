@@ -14,7 +14,7 @@ class ProjectController extends ActiveController
     public $modelClass = 'common\models\Project';
     public $serializer = [
         'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => 'responseData',
+        'collectionEnvelope' => 'dataProvider',
     ];
 
     public function actions(){

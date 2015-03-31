@@ -73,7 +73,12 @@ class Project extends ActiveRecord
         );
 
         //remove unwanted fields
-        unset($fields['created_at'],$fields['created_at']);
+        $fields['created_at'] = function($model){
+            return date("d-m-Y",$model->created_at);
+        };
+        $fields['updated_at'] = function($model){
+            return date("d-m-Y",$model->updated_at);
+        };
 
         return $fields;
     }

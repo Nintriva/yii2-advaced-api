@@ -2,14 +2,14 @@
 namespace api\controllers;
 
 use Yii;
-use yii\rest\ActiveController;
+use api\components\ApiController;
 use common\models\ProjectSearch;
 
 
 /**
  * Site controller
  */
-class ProjectController extends ActiveController
+class ProjectController extends ApiController
 {
     public $modelClass = 'common\models\Project';
     /*public $serializer = [
@@ -17,16 +17,7 @@ class ProjectController extends ActiveController
         'collectionEnvelope' => 'dataProvider',
     ];*/
 
-    /**
-     * ActiveController implements a common set of actions for supporting RESTful access to ActiveRecord.
-     *
-     * - `index`: list of models
-     * - `view`: return the details of a model
-     * - `create`: create a new model
-     * - `update`: update an existing model
-     * - `delete`: delete an existing model
-     *
-     */
+
     public function actions(){
         $actions = parent::actions();
         unset($actions['index']);
@@ -34,14 +25,25 @@ class ProjectController extends ActiveController
     }
 
     /**
-     * Returns the data model based on the attributes given.
-     *
-     * @param integer $id the ID of the action to be executed.
-     * @param string $model the model to be accessed. If null, it means no specific model is being accessed.
-     * @param array $params additional parameters.
-     *
+     * @Note: By default OPTIONS not need to be authorized, if any action not need authorization include inside array
+     * Header: Authorization , Value: Bearer <auth_key> (need space between Bearer and auth_key)
      */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $action = Yii::$app->requestedAction->id;
+        if (!in_array($action, ['options'])) {
+            $behaviors['authenticator'] = [
+                'class' => HttpBearerAuth::className(),
+            ];
+        }
+        return $behaviors;
+    }
 
+    /**
+     * @return \yii\data\ActiveDataProvider
+     * @Note: You can use default index if you need
+     */
     public function actionIndex(){
         $model = new ProjectSearch();
         $params[$model->formName()] = Yii::$app->request->get();
@@ -49,5 +51,23 @@ class ProjectController extends ActiveController
         return $dataProvider;
     }
 
+    /**
+     * @param string $action
+     * @param null $model
+     * @param array $params
+     * @return bool|void
+     * @throws ForbiddenHttpException
+     * @Note Change conditions for each action according to your need throw ForbiddenHttpException if it fails
+     */
+    public function checkAccess($action, $model = null, $params = [])
+    {
+        if (in_array($action, ['create','options','index'])) {
+            return true;
+        } elseif (in_array($action, ['view', 'update','delete'])) {
+            if (Yii::$app->user->id == $model->id)
+                return true;
+        }
+        throw new ForbiddenHttpException("You are not Authorized to access this page");
+    }
 
 }

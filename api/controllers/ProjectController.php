@@ -4,7 +4,8 @@ namespace api\controllers;
 use Yii;
 use api\components\ApiController;
 use common\models\ProjectSearch;
-
+use yii\filters\auth\HttpBearerAuth;
+use yii\web\ForbiddenHttpException;
 
 /**
  * Site controller

@@ -3,23 +3,25 @@ namespace api\controllers;
 
 use Yii;
 use api\components\ApiController;
-use common\models\ProjectSearch;
+use common\models\UserSearch;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\ForbiddenHttpException;
 
 /**
  * Site controller
  */
-class ProjectController extends ApiController
+class UserController extends ApiController
 {
-    public $modelClass = 'common\models\Project';
+    public $modelClass = 'common\models\UserModel';
+
     /*public $serializer = [
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'dataProvider',
     ];*/
 
 
-    public function actions(){
+    public function actions()
+    {
         $actions = parent::actions();
         unset($actions['index']);
         return $actions;
@@ -33,7 +35,8 @@ class ProjectController extends ApiController
     {
         $behaviors = parent::behaviors();
         $action = Yii::$app->requestedAction->id;
-        if (!in_array($action, ['options'])) {
+        //create should removed if we are not allowing to create
+        if (!in_array($action, ['options', 'create'])) {
             $behaviors['authenticator'] = [
                 'class' => HttpBearerAuth::className(),
             ];
@@ -45,8 +48,9 @@ class ProjectController extends ApiController
      * @return \yii\data\ActiveDataProvider
      * @Note: You can use default index if you need
      */
-    public function actionIndex(){
-        $model = new ProjectSearch();
+    public function actionIndex()
+    {
+        $model = new UserSearch();
         $params[$model->formName()] = Yii::$app->request->get();
         $dataProvider = $model->search($params);
         return $dataProvider;
@@ -62,11 +66,12 @@ class ProjectController extends ApiController
      */
     public function checkAccess($action, $model = null, $params = [])
     {
-        if (in_array($action, ['create','options','index'])) {
+        if (in_array($action, ['create', 'options', 'index'])) {
             return true;
-        } elseif (in_array($action, ['view', 'update','delete'])) {
-            if (Yii::$app->user->id == $model->id)
+        } elseif (in_array($action, ['view', 'update', 'delete'])) {
+            if (Yii::$app->user->id == $model->id) {
                 return true;
+            }
         }
         throw new ForbiddenHttpException("You are not Authorized to access this page");
     }

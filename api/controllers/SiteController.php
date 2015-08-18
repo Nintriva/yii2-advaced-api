@@ -1,10 +1,14 @@
 <?php
 namespace api\controllers;
 
-use Yii;
+use common\models\LoginForm;
+use yii\base\UserException;
 use yii\rest\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\User;
+use common\models\UserModel;
+use Yii;
 
 /**
  * Site controller
@@ -62,9 +66,30 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return [
-            "message"=>"Everything work fine,if you need configure response format do it in config",
+            "message" => "Everything work fine,if you need configure response format do it in config",
         ];
     }
 
+    public function actionRegister()
+    {
+        $model = new User();
+        $params[$model->formName()] = Yii::$app->request->post();
+        $model->load($params);
+        $model->setPassword($model->password);
+        return $model->register();
+    }
+
+    public function actionLogin()
+    {
+        $model = new LoginForm();
+        $params[$model->formName()] = Yii::$app->request->post();
+        $model->load($params);
+        if($model->login()){
+            return Yii::$app->user->identity;
+        }
+        else{
+            throw new UserException("Wrong login credential");
+        }
+    }
 
 }

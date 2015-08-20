@@ -36,7 +36,7 @@ class UserController extends ApiController
         $behaviors = parent::behaviors();
         $action = Yii::$app->requestedAction->id;
         //create should removed if we are not allowing to create
-        if (!in_array($action, ['options', 'create'])&&(!Yii::$app->request->method=='OPTIONS')) {
+        if (!in_array($action, ['options', 'create'])&&(Yii::$app->request->method!='OPTIONS')) {
             $behaviors['authenticator'] = [
                 'class' => HttpBearerAuth::className(),
             ];

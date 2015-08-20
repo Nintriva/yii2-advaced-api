@@ -54,7 +54,13 @@ return [
             //'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => ['user', 'site']],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['user', 'site'],
+                    'extraPatterns' => [
+                        'POST search' => 'search',
+                    ]
+                ],
             ],
         ],
         'errorHandler' => [

@@ -14,10 +14,10 @@ class UserController extends ApiController
 {
     public $modelClass = 'common\models\UserModel';
 
-    /*public $serializer = [
+    public $serializer = [
         'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => 'dataProvider',
-    ];*/
+        'collectionEnvelope' => 'items',
+    ];
 
 
     public function actions()

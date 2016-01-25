@@ -59,6 +59,7 @@ return [
                     'controller' => ['user', 'site'],
                     'extraPatterns' => [
                         'POST search' => 'search',
+                        'GET site/error'=>'error',
                     ]
                 ],
             ],

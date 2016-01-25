@@ -17,24 +17,32 @@ $this->registerJs(
 );
 
 $JS = <<<JS
-(function($) {
-var url = 'http://yiiapi.local/site/index?callback=?';
-$.ajax({
-   type: 'GET',
-    url: url,
-    async: false,
-    jsonpCallback: 'jsonCallback',
-    contentType: "application/json",
-    dataType: 'jsonp',
-    error: function(e) {
-       console.log(e);
-    }
-});
 
-})(jQuery);
+    (function ($) {
+        var url = 'http://yiiapi.local/s?v=' + Math.random();
+        $.ajax({
+            url: url,
+            data: {email: "bimal@nintriva.com"},
+            headers: {
+                authorization: "Bearer 1bGc5yB6cigrLsHvijO5z-kPJfIbCDnl"
+            },
+            method: 'POST',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+    })(jQuery);
+
 JS;
 
 $this->registerJs(
-    $JS
+$JS
 );
 ?>
+<script>
+
+</script>

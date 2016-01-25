@@ -116,7 +116,7 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionTestjsonp()
+    public function actionTest()
     {
         return $this->render('jsonp_test');
     }

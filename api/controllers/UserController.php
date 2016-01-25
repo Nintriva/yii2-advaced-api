@@ -30,13 +30,14 @@ class UserController extends ApiController
     /**
      * @Note: By default OPTIONS not need to be authorized, if any action not need authorization include inside array
      * Header: Authorization , Value: Bearer <auth_key> (need space between Bearer and auth_key)
+     * $guestActions : array of action which will not execute HttpBearerAuth
      */
     public function behaviors()
     {
         $behaviors = parent::behaviors();
         $action = Yii::$app->requestedAction->id;
-        //create should removed if we are not allowing to create
-        if (!in_array($action, ['options', 'create'])&&(Yii::$app->request->method!='OPTIONS')) {
+        $guestActions = [];
+        if (!in_array($action, $guestActions)&&(Yii::$app->request->method!='OPTIONS')) {
             $behaviors['authenticator'] = [
                 'class' => HttpBearerAuth::className(),
             ];
@@ -77,6 +78,8 @@ class UserController extends ApiController
             return true;
         } elseif (in_array($action, ['view', 'update', 'delete'])) {
             if (Yii::$app->user->id == $model->id) {
+/*                you can check the condition like $model->create_by current user like. The above condition check current model id with current user id so only that user can perform above actions view ,update, delete
+  */
                 return true;
             }
         }

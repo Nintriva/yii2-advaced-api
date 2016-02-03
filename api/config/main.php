@@ -58,7 +58,7 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => ['user', 'site'],
                     'extraPatterns' => [
-                        'POST search' => 'search',
+                        'POST,OPTIONS search' => 'search',
                         'GET site/error'=>'error',
                     ]
                 ],

@@ -19,7 +19,7 @@ $this->registerJs(
 $JS = <<<JS
 
     (function ($) {
-        var url = 'http://yiiapi.local/s?v=' + Math.random();
+        var url = 'http://yiiapi.local/users/search?v=' + Math.random();
         $.ajax({
             url: url,
             data: {email: "bimal@nintriva.com"},
@@ -27,11 +27,13 @@ $JS = <<<JS
                 authorization: "Bearer 1bGc5yB6cigrLsHvijO5z-kPJfIbCDnl"
             },
             method: 'POST',
-            success: function (data) {
+             success: function (data) {
                 console.log(data);
+                $("#content").html(JSON.stringify(data, undefined, 2));
             },
             error: function (e) {
                 console.log(e);
+                $("#error").html(JSON.stringify(e.responseJSON, undefined, 2));
             }
         });
 
@@ -43,6 +45,6 @@ $this->registerJs(
 $JS
 );
 ?>
-<script>
 
-</script>
+<pre id="content" style="color: darkgreen"></pre>
+<pre id="error" style="color: red"></pre>

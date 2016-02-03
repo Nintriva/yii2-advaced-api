@@ -45,6 +45,5 @@ $this->registerJs(
 $JS
 );
 ?>
-
 <pre id="content" style="color: darkgreen"></pre>
 <pre id="error" style="color: red"></pre>

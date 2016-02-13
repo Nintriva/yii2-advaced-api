@@ -11,6 +11,10 @@ modules:
     config:
         PhpBrowser:
             url: 'http://localhost:8080/api/web/index-test.php/'
+#        WebDriver:
+#            url: 'http://localhost'
+#            browser: firefox
+#            restart: true
         REST:
             url: 'http://localhost:8080/api/web/index-test.php/'
 

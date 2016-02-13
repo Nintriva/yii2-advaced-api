@@ -8,7 +8,7 @@ $params = array_merge(
 $callback = isset($_REQUEST['callback']) ? $_REQUEST['callback'] : false;
 $format = $callback ? 'jsonp' : 'json';
 return [
-    'id' => 'app-frontend',
+    'id' => 'app-api',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'api\controllers',

@@ -17,4 +17,4 @@ modules:
 #            restart: true
         REST:
             url: 'http://localhost:8080/api/web/index-test.php/'
-
+            depends: PhpBrowser
